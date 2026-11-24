@@ -22,7 +22,7 @@ def test_templates_have_bom():
 
 def test_teams_table_is_20_and_resolves_all_forms():
     t = load_teams(ROOT / "data/teams.csv")
-    assert len(t.official) == 20
+    assert len(t.official) == 26
     assert t.resolve("浦和") == t.resolve("浦和レッズ") == "浦和レッズ"
     assert t.resolve("ＦＣ東京") == "FC東京"          # 全角
     assert t.resolve(" 川崎 F ") == "川崎フロンターレ"  # 空白
@@ -30,7 +30,7 @@ def test_teams_table_is_20_and_resolves_all_forms():
 
 def test_ambiguous_or_unknown_names_are_rejected():
     t = load_teams(ROOT / "data/teams.csv")
-    for bad in ["東京", "横浜", "新潟", ""]:
+    for bad in ["東京", "横浜", "存在しないFC", ""]:
         try:
             t.resolve(bad)
             assert False, bad
